@@ -5,7 +5,7 @@ const handler = (_req: NextApiRequest, res: NextApiResponse) => {
   console.log("received request");
   console.log(_req.body);
   res.statusCode = 200;
-  res.json({ message: "ok" });
+  res.json(_req.body);
 };
 
 export default handler;
