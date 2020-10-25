@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(401).send("You need a valid API key.");
   }
 
-  if (!req.body.tweet) {
+  if (!req.body.message) {
     return res.status(400).send("Cannot tweet empty message.");
   }
 
@@ -31,12 +31,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   });
 
   try {
-    await twitterClient.post("statuses/update", { status: req.body.tweet });
+    await twitterClient.post("statuses/update", { status: req.body.message });
   } catch (error) {
     return res.status(503).send("Could not post to twitter.");
   }
 
-  return res.status(200).json({ tweet: req.body.tweet });
+  return res.status(200).json({ tweet: req.body.message });
 };
 
 export default handler;
