@@ -14,6 +14,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).send("Cannot tweet empty message.");
   }
 
+  if (
+    !process.env.T_ACCESS_TOKEN_KEY ||
+    !process.env.T_ACCESS_TOKEN_SECRET ||
+    !process.env.T_CONSUMER_KEY ||
+    !process.env.T_CONSUMER_SECRET
+  ) {
+    return res.status(400).send("Twitter is not configured for this API.");
+  }
+
   const twitterClient = new Twitter({
     access_token_key: process.env.T_ACCESS_TOKEN_KEY,
     access_token_secret: process.env.T_ACCESS_TOKEN_SECRET,
