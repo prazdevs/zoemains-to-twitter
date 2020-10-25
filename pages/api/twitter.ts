@@ -10,6 +10,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(401).send("You need a valid API key.");
   }
 
+  if (!req.body.tweet) {
+    return res.status(400).send("Cannot tweet empty message.");
+  }
+
   const twitterClient = new Twitter({
     access_token_key: process.env.T_ACCESS_TOKEN_KEY,
     access_token_secret: process.env.T_ACCESS_TOKEN_SECRET,
